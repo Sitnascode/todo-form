@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <style>
+      /* Basic styling */
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+
+      form {
+        margin-bottom: 15px;
+      }
+
+      input {
+        padding: 6px;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 6px 12px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        display: flex; /* put text & button in one line */
+        justify-content: space-between; /* push them far apart */
+        align-items: center; /* vertically align */
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+        width: 300px;
+      }
+
+      li button {
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 4px;
+      }
+
+      li button:hover {
+        background-color: darkred;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <input type="text" id="Task" placeholder="Add task here" />
+      <button id="addTask">Add Task</button>
+    </form>
+    <ul id="TaskList"></ul>
+    <script>
+      const task = document.getElementById("Task");
+      const btn = document.getElementById("addTask");
+      const tasklist = document.getElementById("TaskList");
+      btn.addEventListener("click", () => {
+        event.preventDefault();
+        const list = document.createElement("li");
+        const del = document.createElement("button");
+        del.textContent = "DELETE";
+        if (task.value === "") {
+          return;
+        }
+        list.textContent = task.value + " ";
+
+        list.appendChild(del);
+        tasklist.appendChild(list);
+        task.value = "";
+        del.addEventListener("click", () => list.remove());
+      });
+    </script>
+  </body>
+</html>
