@@ -56,12 +56,15 @@
     <form action="">
       <input type="text" id="Task" placeholder="Add task here" />
       <button id="addTask">Add Task</button>
+      <p id="msg"></p>
     </form>
     <ul id="TaskList"></ul>
     <script>
       const task = document.getElementById("Task");
       const btn = document.getElementById("addTask");
       const tasklist = document.getElementById("TaskList");
+      const msg = document.getElementById("msg");
+      const taskLists = [];
       btn.addEventListener("click", () => {
         event.preventDefault();
         const list = document.createElement("li");
@@ -70,12 +73,21 @@
         if (task.value === "") {
           return;
         }
-        list.textContent = task.value + " ";
+        list.textContent = task.value;
 
         list.appendChild(del);
         tasklist.appendChild(list);
+        taskLists.push(list);
+        msg.textContent = taskLists.length + " tasks added!";
         task.value = "";
-        del.addEventListener("click", () => list.remove());
+        del.addEventListener("click", () => {
+          list.remove();
+          const index = taskLists.indexOf(list);
+          if (index > -1) {
+            taskLists.splice(index, 1);
+          }
+          msg.textContent = taskLists.length + " tasks added!";
+        });
       });
     </script>
   </body>
